@@ -2,6 +2,7 @@ package nz.mikhailov.example;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,6 +27,13 @@ public class ApplicationConfiguration {
     log.info("Using DynamoDb endpoint {}", dynamoDbEndpoint);
     client.setEndpoint(dynamoDbEndpoint);
     return client;
+  }
+
+  @Bean
+  public DynamoDBMapper dynamoDbMapper(AmazonDynamoDB amazonDynamoDB) {
+
+    log.trace("Entering dynamoDbMapper()");
+    return new DynamoDBMapper(amazonDynamoDB);
   }
 
 }
