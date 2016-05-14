@@ -6,10 +6,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.List;
 import java.util.Optional;
 
+import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.containsInAnyOrder;
+import static org.hamcrest.collection.IsEmptyCollection.emptyCollectionOf;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
@@ -129,5 +134,23 @@ public class CustomerServiceTest {
     boolean result = service.delete("Arthur C. Clarke");
     assertThat(result, is(true));
     verify(repository).delete("Arthur C. Clarke");
+  }
+
+  @Test
+  public void listShouldReturnEmptyListWhenNothingFound() throws Exception {
+
+    when(repository.readAll()).thenReturn(emptyList());
+    List<Customer> result = service.list();
+    assertThat(result, is(emptyCollectionOf(Customer.class)));
+  }
+
+  @Test
+  public void listShouldReturnAllCustomers() throws Exception {
+
+    Customer customer1 = new Customer().withName("Arthur C. Clarke");
+    Customer customer2 = new Customer().withName("Dale Carnegie");
+    when(repository.readAll()).thenReturn(asList(customer1, customer2));
+    List<Customer> result = service.list();
+    assertThat(result, containsInAnyOrder(customer1, customer2));
   }
 }

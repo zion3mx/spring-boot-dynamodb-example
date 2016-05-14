@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.amazonaws.util.StringUtils.isNullOrEmpty;
@@ -77,5 +78,11 @@ public class CustomerService {
     }
     repository.delete(name);
     return true;
+  }
+
+  public List<Customer> list() {
+
+    log.trace("Entering list()");
+    return repository.readAll();
   }
 }
