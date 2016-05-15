@@ -1,4 +1,5 @@
 # Spring Boot RESTful Microservice Example with Amazon DynamoDB
+
 ## The original task
 
 > Write an application that provides CRUD (create, read, update, delete) RESTful services for customer data.
@@ -25,37 +26,48 @@ This will help demonstrate "user already exists" kind of errors in API.
 * AWS DynamoDB database used as very easy to use, managed, and extremely cheap NoSQL database.
 
 ## To run the application locally
+
 ### To run on default ports
+
 Default ports are `8000` (for DynamoDB-Local) and `8080` (for Spring Boot Embedded Tomcat)
+
 0. Install Java 8
+
 1. Download and run DynamoDB-Local from [Amazon Website](http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html#DynamoDBLocal.DownloadingAndRunning) with the following parameters
 
         java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb -inMemory
+
 2. After cloning current repository run the app
 
         ./gradlew clean bootRun
+
 ### To run on different ports
 
 The following example will let you start DynamoDB-Local on port `8881` and the application on port `8882`:
+
 1. To start DynamoDb-Local
 
         java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb -inMemory -port 8881
+
 2. To start the application
 
         ./gradlew clean bootRepackage
         java -jar -DdynamoDbEndpoint=http://localhost:8881 -Dserver.port=8882 build/libs/spring-rest-dynamodb-example.jar
 
 ### To run unit tests
+
     ./gradlew clean test
 
 Unit test report will be in `./build/reports/tests/index.html`
 
 ### To run integration tests
+
 Following command line assumes that you are running DynamoDB-Local on port 8000
 
     ./gradlew clean integrationTest
 
 ## REST API
+
 ### Health Check
 
     GET /health
