@@ -1,4 +1,4 @@
-# Spring Boot RESTful Web Service Example with Amazon DynamoDB
+# Spring Boot RESTful Microservice Example with Amazon DynamoDB
 ## The original task
 
 > Write an application that provides CRUD (create, read, update, delete) RESTful services for customer data.
@@ -49,6 +49,11 @@ The following example will let you start DynamoDB-Local on port `8881` and the a
     ./gradlew clean test
 
 Unit test report will be in `./build/reports/tests/index.html`
+
+### To run integration tests
+Following command line assumes that you are running DynamoDB-Local on port 8000
+
+    ./gradlew clean integrationTest
 
 ## REST API
 ### Health Check
