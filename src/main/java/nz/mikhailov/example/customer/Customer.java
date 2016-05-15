@@ -4,6 +4,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @DynamoDBTable(tableName = "Customer")
@@ -14,6 +15,7 @@ public class Customer {
   private String phoneNumber;
 
   @DynamoDBHashKey(attributeName = "Name")
+  @NotNull(message = "Name must not be empty")
   public String getName() {
 
     return name;

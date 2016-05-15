@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.CONFLICT;
@@ -48,7 +49,7 @@ public class CustomerController {
   }
 
   @RequestMapping(path = "/customer", method = RequestMethod.POST)
-  public ResponseEntity<Customer> create(@RequestBody Customer customer) {
+  public ResponseEntity<Customer> create(@RequestBody @Valid Customer customer) {
 
     log.trace("Entering create() with {}", customer);
     return service.create(customer)

@@ -23,6 +23,7 @@ import static org.junit.Assert.assertThat;
 import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.PATCH;
 import static org.springframework.http.HttpMethod.PUT;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
@@ -55,6 +56,15 @@ public class CustomerIntegrationTest {
     restTemplate.postForEntity(url("/v1/customer"), customer, Customer.class);
     ResponseEntity<Customer> result = restTemplate.postForEntity(url("/v1/customer"), customer, Customer.class);
     assertThat(result.getStatusCode(), is(CONFLICT));
+  }
+
+  @Test
+  public void postShouldRespondWithBadRequestIfCustomerNameNotPassed() throws Exception {
+
+    Customer customer = new Customer().withPhoneNumber(randomUUID().toString());
+    restTemplate.postForEntity(url("/v1/customer"), customer, Customer.class);
+    ResponseEntity<Customer> result = restTemplate.postForEntity(url("/v1/customer"), customer, Customer.class);
+    assertThat(result.getStatusCode(), is(BAD_REQUEST));
   }
 
   @Test
